@@ -1,15 +1,28 @@
 <template>
-  <div class="container text-center py-5">
+  <div @scroll.passive
+   @click.self="writeToConsole"
+  class="container text-center py-5">
     <h3 class="mt-5">ANA SAYFA</h3>
-    
+    <!--Event Modifiers-->   
+    <button
+    class="btn btn-primary">Hello</button>
+
+    <form  @submit.prevent action="submit"> <hr>
+    <button @click="writeConsole('Hello World')">Hi</button> <hr>
+    <button @click.passive="writeConsole('Hello World')">Hi</button>
+    </form>
   </div>
 </template>
 <script setup lang="ts">
 import { ref } from 'vue';
-const msg = ref('');
-const getRandomNumber = (): number => {
-  return Math.floor(Math.random() * 3 + 1);
+
+const writeConsole = (str: string) => {
+  console.log(str)
 }
+const writeToConsole = ()=> {
+  console.log("Clicked")
+}
+
 </script>
 
 <style lang="scss">
