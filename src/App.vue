@@ -6,7 +6,7 @@
     <hr />
     {{ getRandomNumber() === 3 ? "Gelen Sayı 3" : "Gelen sayı 3 den farklı" }}
     <hr />
-    {{ msg = getRandomNumber().toString() }}
+    {{ msg = getRandomNumber().toString() }}xxx
   </div>
 </template>
 <script setup lang="ts">
