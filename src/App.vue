@@ -25,11 +25,16 @@
     >
       <p>{{ textValue.value }} : {{ index }}</p>
       <template v-if="textValue.array && Array.isArray(textValue.array)">
-        <div v-for="(arrayValue,index2) in textValue.array" :key="index2">
-        {{arrayValue}}
-        </div>
+        <div v-for="(arrayValue,index2) in textValue.array" :key="index2">{{ arrayValue }}</div>
       </template>
     </div>
+
+    <div v-for="(val,key,index) in myObj" :key="index">{{ key }} -- {{ val }} : {{index}}</div>
+
+    <div :key=myKey> {{Math.random()}}
+    </div>
+    <button @click="myKey = Date.now()">Tıkla</button>
+
   </div>
 </template>
 <script setup lang="ts">
@@ -38,6 +43,7 @@ type CustomObject = {
   value: string;
   array?: string[];
 }
+const myKey: Ref<number> = ref(0);
 
 const text = ref([
   "Selamlar",
@@ -48,6 +54,12 @@ const text = ref([
   "Kötü Çalışmalar",
   "İyi Çalışmalar"
 ]);
+
+const myObj = {
+  value: 'hello',
+  number: 34298,
+  text: "asdasdas"
+}
 
 
 const text2: Ref<CustomObject[]> = ref([
