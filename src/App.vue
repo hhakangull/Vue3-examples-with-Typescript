@@ -1,12 +1,14 @@
 <template>
-  <Icon>delete</Icon>
-  <Icon>pause</Icon> 
-  <Icon>play_circle</Icon>
+  <Icon :type="'play_circle'" />
+  <Icon :type="'paused'" />
+  <Icon :type="'delete'" />
+  <div class="mx-auto w-50">
+    <List :list="[true, 15, 20, 'Merhabalar', 'kanala', 'hoşgeldiniz', 'Vue3', 'dersleridir']" />
+  </div>
 </template>
 <script setup lang="ts">
-import { Ref, ref } from 'vue';
 import Icon from './components/Icon.vue';
-
+import List from './components/List.vue';
 
 </script>
 
