@@ -1,37 +1,47 @@
 <template>
-  <div class="container text-center py-5">
+  <div class="container py-5">
     <h3 class="mt-5">ANA SAYFA</h3>
-    <input :value="msg" type="text" @input="makeEqual" />
-    <hr />
-    <input type="text" v-model="msg" />
-    <hr />
-    msg: {{ msg }}
-    <hr />
-    <div style="white-space: pre-wrap;">{{ text }}</div>
-    <textarea v-model="text"></textarea>
-    <hr />
-    {{ checkbox }}
-    <br />
-    Araba:
-    <input value="araba" type="checkbox" v-model="checkbox" />
-    Motor:
-    <input value="motor" type="checkbox" v-model="checkbox" />
-    Kamyonet:
-    <input value="kamyonet" type="checkbox" v-model="checkbox" />
+    <div class="col-sm-10">{{ values }}</div>
+    <div>
+      <div class="form-check">
+        <input v-model="values" class="form-check-input" type="radio" value="araba" />
+        <label class="form-check-label" for="gridRadios1">Araba</label>
+      </div>
+      <div class="form-check">
+        <input v-model="values" class="form-check-input" type="radio" value="motor" />
+        <label class="form-check-label" for="gridRadios2">Motor</label>
+      </div>
+      <div class="form-check">
+        <input v-model="values" class="form-check-input" type="radio" value="kamyonet" />
+        <label class="form-check-label" for="gridRadios2">Kamyonet</label>
+      </div>
+    </div>
+    <div>{{ checkValues }}</div>
+    <select v-model="checkValues" multiple class="custom-select mr-sm-2">
+      <option value="Araba">Araba</option>
+      <option value="Motor">Motor</option>
+      <option value="Kamyonet">Kamyonet</option>
+    </select> <hr>
+    <select v-model="checkValuesMultiple" class="custom-select mr-sm-2">
+      <option value="Araba">Araba</option>
+      <option value="Motor">Motor</option>
+      <option value="Kamyonet">Kamyonet</option>
+    </select> <hr>
+    <div>
+    <input type="text" v-model.trim="valuesNormal"> <hr>
+    <input type="number" v-model.number="num">  <hr>
+    <input type="text" v-model.lazy="valuesNormal">
+    </div>
   </div>
 </template>
 <script setup lang="ts">
 import { Ref, ref } from 'vue';
-const msg = ref('Bir Değer Giriniz');
-const text = ref('');
-const checkbox: Ref<String[]> = ref([]);
-function makeEqual(e: KeyboardEvent) {
-  if (e.currentTarget instanceof HTMLInputElement) {
-    return msg.value = e.currentTarget.value;
-  } else {
-    return msg.value;
-  }
-}
+const values: Ref<String[]> = ref([]);
+const checkValuesMultiple: Ref<String[]> = ref([]);
+const checkValues = ref('');
+
+const valuesNormal = ref('');
+const num = ref(0);
 
 </script>
 
