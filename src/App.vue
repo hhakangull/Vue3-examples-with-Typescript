@@ -30,7 +30,7 @@
     <div>
     <input type="text" v-model.trim="valuesNormal"> <hr>
     <input type="number" v-model.number="num">  <hr>
-    <input type="text" v-model.lazy="valuesNormal">
+    <input type="valuesNormal" v-model.lazy="valuesNormal">
     </div>
   </div>
 </template>
