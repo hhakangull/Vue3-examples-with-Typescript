@@ -1,20 +1,38 @@
 <template>
   <div class="container text-center py-5">
     <h3 class="mt-5">ANA SAYFA</h3>
-    <!-- v-once da vue elemanı takip etmiyor 1 kere yazıp geçiyor-->
-    <span v-once>{{ msg }}</span>
+    <input :value="msg" type="text" @input="makeEqual" />
     <hr />
-    {{ getRandomNumber() === 3 ? "Gelen Sayı 3" : "Gelen sayı 3 den farklı" }}
+    <input type="text" v-model="msg" />
     <hr />
-    {{ msg = getRandomNumber().toString() }}xxx
+    msg: {{ msg }}
+    <hr />
+    <div style="white-space: pre-wrap;">{{ text }}</div>
+    <textarea v-model="text"></textarea>
+    <hr />
+    {{ checkbox }}
+    <br />
+    Araba:
+    <input value="araba" type="checkbox" v-model="checkbox" />
+    Motor:
+    <input value="motor" type="checkbox" v-model="checkbox" />
+    Kamyonet:
+    <input value="kamyonet" type="checkbox" v-model="checkbox" />
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue';
-const msg = ref('');
-const getRandomNumber = (): number => {
-  return Math.floor(Math.random() * 3 + 1);
+import { Ref, ref } from 'vue';
+const msg = ref('Bir Değer Giriniz');
+const text = ref('');
+const checkbox: Ref<String[]> = ref([]);
+function makeEqual(e: KeyboardEvent) {
+  if (e.currentTarget instanceof HTMLInputElement) {
+    return msg.value = e.currentTarget.value;
+  } else {
+    return msg.value;
+  }
 }
+
 </script>
 
 <style lang="scss">
