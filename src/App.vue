@@ -1,32 +1,34 @@
 <template>
   <div class="mx-auto p-2" style="max-width: 600px">
-    <div v-if="toggle" class="alert alert-danger" role="alert">
-      Lütfen Giriş Yapınız!!!      
+    <div>
+      <h1>{{ sayi }}</h1>
     </div>
-
-    <ToggleButton @toggle="toggleIt($event)">Toggle</ToggleButton>
+    <h2>2x = {{ ikiKati }}</h2>
+    <hr />
+    <button class="btn btn-primary" @click="ikiKati += 10">Arttır</button>
   </div>
 </template>
 
-<script lang="ts">
-import ToggleButton from "./components/ToggleButton.vue";
-import { defineComponent } from "vue";
-export default defineComponent({
-  data() {
-    return {
-      toggle: true,
-    };
+<script setup lang="ts">
+import { ref, computed } from "vue";
+const sayi = ref(0);
+
+// const ikiKati = computed(() => {
+//   console.log("Değer DEğişti")
+//   return sayi.value * 2
+// });
+const ikiKati = computed({
+  set(val: number) {
+    sayi.value = val;
   },
-  components: {
-    ToggleButton,
-  },
-  methods: {
-    toggleIt(value: boolean) {
-      this.toggle = value;
-    },
-  },
-  
+  get() {
+    return sayi.value * 2
+  }
 });
+const ikiKatiFunc = () => {
+  return sayi.value * 2;
+}
+
 </script>
 
 <style lang="scss">
