@@ -71,6 +71,6 @@ const emitEvent = () => {
 
 onMounted(() => {
    emit('toggle', true)
-})
+});
 
 </script>
