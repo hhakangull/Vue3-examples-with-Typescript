@@ -1,34 +1,20 @@
 <template>
-  <div class="mx-auto p-2" style="max-width: 600px">
-    <div>
-      <h1>{{ sayi }}</h1>
-    </div>
-    <h2>2x = {{ ikiKati }}</h2>
-    <hr />
-    <button class="btn btn-primary" @click="ikiKati += 10">Arttır</button>
+  <div class="main">
+    <TabView :current-tab-index="currentTabIndex"/>
+    <BottomBar @tab-change="changeTab($event)" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
-const sayi = ref(0);
+import { ref } from "vue";
+import BottomBar from "./components/BottomBar.vue";
+import TabView from "./components/TabView.vue";
 
-// const ikiKati = computed(() => {
-//   console.log("Değer DEğişti")
-//   return sayi.value * 2
-// });
-const ikiKati = computed({
-  set(val: number) {
-    sayi.value = val;
-  },
-  get() {
-    return sayi.value * 2
-  }
-});
-const ikiKatiFunc = () => {
-  return sayi.value * 2;
+const currentTabIndex  = ref(0)
+
+const changeTab = (index: number) => {
+  currentTabIndex.value = index;
 }
-
 </script>
 
 <style lang="scss">
@@ -36,5 +22,15 @@ const ikiKatiFunc = () => {
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 .buttonum {
   position: absolute;
+}
+body {
+  margin: 0;
+  padding: 0;
+}
+.main {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 </style>
