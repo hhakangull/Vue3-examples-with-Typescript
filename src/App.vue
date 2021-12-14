@@ -1,22 +1,59 @@
 <template>
-  <div class="main">
-  <div :class="{active: activeIndex == 0, notActive: activeIndex != 0}" 
-  
-  @click="activeIndex = 0" style="background-color: red; flex:1"></div>  
-  <div :class="{active: activeIndex == 1, notActive: activeIndex != 1}" 
-  @click="activeIndex = 1" style="background-color: orange; flex:1"></div>
-  <div :class="{active: activeIndex == 2, notActive: activeIndex != 2}" 
-  @click="activeIndex = 2" style="background-color: purple; flex:1"></div>
-  
+  <div id="myElement" class="main">
+    <!--Button class btn btn-primary  ClickEvent  -->
+    <h2 ref="myH2" :key="myKey" 
+    @click="nextTickFunc"
+    >{{ myKey }}</h2>
+    <br />
+    <!-- <button class="btn btn-primary" @click="myKey = Math.random()">Click Me</button> -->
+    <!-- <button class="btn btn-primary" @click="nextTickFunc">Click me</button> -->
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref,Ref } from 'vue';
+import { onBeforeMount, onMounted, onUpdated, ref, nextTick, Ref } from 'vue';
 
-// activeIndex is ref type null or number
-let activeIndex = ref(-1)
+const myKey = ref(3);
+const myH2 = ref<HTMLElement | null>(null);
 
+onBeforeMount(() => {
+  // ... dom öncesinde çalışan life cycle hook
+  console.log('before mount worked');
+  // console.log(document.getElementById('myElement'));
+  console.log({ myH2 });
+});
+
+onMounted(() => {
+  // ... dom sonrasında çalışan life cycle hook
+  console.log('on mounted worked');
+  // console.log(document.getElementById('myElement'));
+  // console.log({ myH2 });
+  if(myH2 instanceof HTMLElement) {
+    
+    myH2.style.color = 'red';
+    myH2.style.fontSize = '50px';
+    myH2.innerHTML = 'on mounted worked';
+
+  
+
+  }
+
+});
+
+onUpdated(() => {
+  // ... dom güncellendiğinde çalışan life cycle hook
+  console.log('on updated worked');
+  console.log("component güncellendi");
+  console.log(myKey.value);
+
+});
+
+const nextTickFunc = async () => {
+  myKey.value = Math.random();
+  await nextTick();
+  myKey.value = Math.random();
+  console.log("nextTickFunc");
+}
 
 
 </script>
@@ -25,47 +62,11 @@ let activeIndex = ref(-1)
 @import "./assets/bootstrap.css";
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
-.active {
-  animation: active .5s infinite;
-}
-.notActive {
-   animation: active .5s infinite;
-}
-
-@keyframes active {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(2);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-@keyframes notActive {
-  0% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-
 .main {
-  background-color: black;
   // height: 100vh;
   // width: 100%;
   margin: 50px;
-  display: flex;
-  align-items: stretch;
-  
+
   // flex-direction: column;
-  width: 600px;
-  height: 300px;
 }
 </style>
