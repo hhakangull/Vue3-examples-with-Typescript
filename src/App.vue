@@ -1,60 +1,20 @@
-<template>
-  <div id="myElement" class="main">
-    <!--Button class btn btn-primary  ClickEvent  -->
-    <h2 ref="myH2" :key="myKey" 
-    @click="nextTickFunc"
-    >{{ myKey }}</h2>
-    <br />
-    <!-- <button class="btn btn-primary" @click="myKey = Math.random()">Click Me</button> -->
-    <!-- <button class="btn btn-primary" @click="nextTickFunc">Click me</button> -->
-  </div>
-</template>
 
-<script setup lang="ts">
-import { onBeforeMount, onMounted, onUpdated, ref, nextTick, Ref } from 'vue';
+<script  lang="ts">
+import { defineComponent, h, ref } from "vue";
 
-const myKey = ref(3);
-const myH2 = ref<HTMLElement | null>(null);
-
-onBeforeMount(() => {
-  // ... dom öncesinde çalışan life cycle hook
-  console.log('before mount worked');
-  // console.log(document.getElementById('myElement'));
-  console.log({ myH2 });
-});
-
-onMounted(() => {
-  // ... dom sonrasında çalışan life cycle hook
-  console.log('on mounted worked');
-  // console.log(document.getElementById('myElement'));
-  // console.log({ myH2 });
-  if(myH2 instanceof HTMLElement) {
-    
-    myH2.style.color = 'red';
-    myH2.style.fontSize = '50px';
-    myH2.innerHTML = 'on mounted worked';
-
-  
-
+export default defineComponent({
+  setup() {
+    const myEl = ref(2);
+    const log = () => console.log("Selem Render Function");
+    return () => h('div', { id: 'app' }, [
+      h('h2', { onClick: log }, [
+        h('span', { class: 'material-icons', style: 'font-size: 100px' }, 
+        'whatshot'),
+        h('span', myEl.value = Date.now()),
+      ])
+    ])
   }
-
 });
-
-onUpdated(() => {
-  // ... dom güncellendiğinde çalışan life cycle hook
-  console.log('on updated worked');
-  console.log("component güncellendi");
-  console.log(myKey.value);
-
-});
-
-const nextTickFunc = async () => {
-  myKey.value = Math.random();
-  await nextTick();
-  myKey.value = Math.random();
-  console.log("nextTickFunc");
-}
-
 
 </script>
 
