@@ -1,20 +1,33 @@
 <template>
   <div class="main">
-    <TabView :current-tab-index="currentTabIndex"/>
-    <BottomBar @tab-change="changeTab($event)" />
+    <MyComponentVue />
+    <br>
+    <button @click="changeName">İsmi Değiştir</button>
+    
+    
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import BottomBar from "./components/BottomBar.vue";
-import TabView from "./components/TabView.vue";
+import { ref, reactive } from "vue";
+import MyComponentVue from "./components/MyComponent.vue";
+import store from './store/store';
 
-const currentTabIndex  = ref(0)
 
-const changeTab = (index: number) => {
-  currentTabIndex.value = index;
+
+
+
+// objecler için reactive kullanılır.
+const person = reactive({
+  isim : 'Hakan',
+  soyad: 'GUL',
+  yas: 25
+})
+const changeName = () => {
+  const input = prompt("Yeni İsmi Giriniz");
+  store.isim = input!;
 }
+
 </script>
 
 <style lang="scss">
