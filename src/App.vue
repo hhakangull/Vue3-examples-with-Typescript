@@ -1,56 +1,19 @@
 <template>
   <div class="main">
-    <button @click="num++" class="btn btn-primary">Click Me</button>
-    <div class="h1 mt-3">{{ num }}</div>
-
-    <button @click="input">Yazı Gir</button>
-    <div>{{ mesaj }}</div>
+    <Text v-if="aktifMi" /> <hr>
+    <button
+    @click="aktifMi = !aktifMi"
+     class="btn btn-primary">Aktif et</button>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, watch, reactive, watchEffect } from 'vue'
-const num = ref(0);
-const mesaj = ref('test');
 
-const input = () => {
-  const text = prompt()!;
-  mesaj.value = text;
-};
+import {ref, defineAsyncComponent} from 'vue';
 
-const stopWatcher = watchEffect(() => {
-  if (num.value < 10) {
-    console.log(num.value)
-    // stopWatcher();
-  }
-}, {
-  onTrigger: () => {
-    if(num.value === 10) {
-      setTimeout(() => {
-      stopWatcher();  
-      }, 1);
-      
-    }
-    // stopWatcher();
-  }
-});
+const Text = defineAsyncComponent(() => import('./components/Text.vue'));
 
-// watchEffect(() => {
-//   // değer değişti zaman devreye giriyor.
-//   console.log(num.value)
-// })
-
-// watch([num, mesaj], (newValues, oldValues)=> {
-//   // console.log("Num Değişti Yeni Değeri :" + num.value)
-//   // console log old value
-//   // console.log("Eski Değeri :" + oldValue)
-//   // console.log("Yeni Değeri :" + newValue)
-//   console.log({oldValues, newValues})
-// }, {
-//   immediate: true,
-//   onTrack: () => console.log("onTrack Çalıştı"),
-//   onTrigger: () => console.log("onTrigger Çalıştı")
-// }) 
+const aktifMi = ref(false);
 
 </script>
 
