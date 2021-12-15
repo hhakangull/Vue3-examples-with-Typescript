@@ -1,20 +1,22 @@
 <template>
   <div class="main">
-    <Text v-if="aktifMi" /> <hr>
-    <button
-    @click="aktifMi = !aktifMi"
-     class="btn btn-primary">Aktif et</button>
+    <button class="ll-5 btn btn-primary" @click="componentEkle">
+      Component Ekle
+    </button>
+    <component v-for="comp in Componentlar" :is="comp" />
   </div>
 </template>
 
 <script lang="ts" setup>
-
-import {ref, defineAsyncComponent} from 'vue';
-
-const Text = defineAsyncComponent(() => import('./components/Text.vue'));
-
+import Text from "./components/Text.vue";
+import { ref, reactive, markRaw } from "vue";
 const aktifMi = ref(false);
 
+const Componentlar = reactive([markRaw(Text)]);
+
+const componentEkle = () => {
+  Componentlar.push(markRaw(Text))
+}
 </script>
 
 <style lang="scss">
