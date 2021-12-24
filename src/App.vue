@@ -1,37 +1,26 @@
 <template>
   <div id="main">
-    <div class="content">
-      <div class="item">
-        <input @keydown.arrow-down="handleArrowDown" type="text" name="" id="" />
-      </div>
-      <div class="item py-2" v-for="(item, index) in items" :key="index">
-        {{ item }}
-      </div>
-    </div>
+    <HomeVue v-if="pageType == 'home'" />
+    <AboutVue v-else-if="pageType == 'about'"/>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
-const items = [...new Array(20).keys()];
+import { ref, defineAsyncComponent } from "vue";
+const AboutVue = defineAsyncComponent(()=> import ('./components/About.vue'));
+const HomeVue = defineAsyncComponent(()=> import ('./components/Home.vue'));
 
-function handleArrowDown() {
-  console.log('handleArrowDown')
+
+const pageType = ref("home" as "home" | "about");
+
+if (window.location.pathname.includes("about")) {
+  pageType.value = "about";
 }
-
 </script>
 
 <style>
-body{
-  background-color: black;
-  color: white;
-}
 #main {
   margin: 30px;
   padding: 30px;
 }
-.item{
-  font-size: 24px;
-}
-
 </style>
