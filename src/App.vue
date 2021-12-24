@@ -1,24 +1,22 @@
 <template>
   <div id="main">
-    <HomeVue v-if="pageType == 'home'" />
-    <AboutVue v-else-if="pageType == 'about'"/>
+    <router-view />
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ref, defineAsyncComponent } from "vue";
-const AboutVue = defineAsyncComponent(()=> import ('./components/About.vue'));
-const HomeVue = defineAsyncComponent(()=> import ('./components/Home.vue'));
 
-
-const pageType = ref("home" as "home" | "about");
-
-if (window.location.pathname.includes("about")) {
-  pageType.value = "about";
-}
 </script>
 
 <style>
+*{
+  margin:0;
+  padding: 0;
+  box-sizing: border-box;
+  border: 0;
+  font-family: 'Bree Serif', serif;
+}
 #main {
   margin: 30px;
   padding: 30px;
